@@ -13,5 +13,12 @@
   "author": {
     "name": "SakuraRin",
     "url": "https://github.com/sakurarin"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Basic Usage",
+      "description": "Demonstrates core component initialization (Logging, Configuration).",
+      "path": "Samples/BasicUsage"
+    }
+  ]
 } 
