@@ -1,0 +1,17 @@
+{
+  "name": "com.sakurarin.unitymcpserver",
+  "version": "0.1.0",
+  "displayName": "Unity MCP Server",
+  "description": "Unity MCP Server implementation for AI Testing.",
+  "unity": "2022.3",
+  "keywords": [
+    "unity",
+    "mcp",
+    "testing",
+    "ai"
+  ],
+  "author": {
+    "name": "SakuraRin",
+    "url": "https://github.com/sakurarin"
+  }
+} 
