@@ -1,7 +1,9 @@
 {
   "name": "Sakurarin.UnityMcpServer.Runtime",
   "rootNamespace": "Sakurarin.UnityMcpServer.Runtime",
-  "references": [],
+  "references": [
+    "Newtonsoft.Json"
+  ],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,

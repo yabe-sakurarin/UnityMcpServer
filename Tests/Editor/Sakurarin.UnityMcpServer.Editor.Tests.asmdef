@@ -5,7 +5,8 @@
     "Sakurarin.UnityMcpServer.Runtime",
     "Sakurarin.UnityMcpServer.Editor",
     "UnityEngine.TestRunner",
-    "UnityEditor.TestRunner"
+    "UnityEditor.TestRunner",
+    "Newtonsoft.Json"
   ],
   "includePlatforms": [
     "Editor"
