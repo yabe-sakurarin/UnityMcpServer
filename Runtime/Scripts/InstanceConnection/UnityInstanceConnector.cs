@@ -10,7 +10,7 @@ namespace Sakurarin.UnityMcpServer.Runtime.InstanceConnection
     /// Manages connections to multiple Unity game instances.
     /// Acts as a central hub for communicating with specific instances via their ID.
     /// </summary>
-    public class UnityInstanceConnector : IDisposable
+    public class UnityInstanceConnector : IDisposable, IUnityInstanceConnector
     {
         // Thread-safe dictionary to store active connections
         private readonly ConcurrentDictionary<string, TcpCommunicator> _activeConnections = new ConcurrentDictionary<string, TcpCommunicator>();
