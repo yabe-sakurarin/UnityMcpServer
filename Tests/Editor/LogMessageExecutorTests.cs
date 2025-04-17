@@ -42,9 +42,9 @@ namespace Sakurarin.UnityMcpServer.Runtime.Tests.Editor
             // Assert
             Assert.IsNotNull(result, "Result should not be null.");
             Assert.IsFalse(result.IsError, "Result should indicate success.");
-            Assert.IsNotNull(result.Content, "Success result should have Content.");
-            Assert.IsTrue(result.Content.ContainsKey("success"), "Success Content should contain 'success' key.");
-            Assert.AreEqual(true, result.Content["success"], "Success Content['success'] should be true.");
+            Assert.IsNotNull(result.ResultData, "Success result should have ResultData.");
+            Assert.IsTrue(result.ResultData.ContainsKey("success"), "Success ResultData should contain 'success' key.");
+            Assert.AreEqual(true, result.ResultData["success"], "Success ResultData['success'] should be true.");
 
             // LogAssert.Expect automatically checks if the log was received during the test execution.
             // If the log wasn't received, the test will fail here or at TearDown.

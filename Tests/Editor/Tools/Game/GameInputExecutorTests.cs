@@ -9,7 +9,7 @@ using UnityEngine.TestTools;
 using UnityEngine;
 using System.Text.RegularExpressions;
 
-namespace Sakurarin.UnityMCPServer.Tests.Editor.Tools.Game
+namespace Sakurarin.UnityMcpServer.Tests.Editor.Tools.Game
 {
     // NOTE: This mock is identical to the one in GameClickExecutorTests.
     // Consider moving to a shared location if more executors use it.
