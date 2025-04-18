@@ -1,12 +1,11 @@
 {
   "name": "Sakurarin.UnityMcpServer.Editor.Tests",
-  "rootNamespace": "Sakurarin.UnityMcpServer.Editor.Tests",
+  "rootNamespace": "Sakurarin.UnityMcpServer.Tests.Editor",
   "references": [
     "Sakurarin.UnityMcpServer.Runtime",
-    "Sakurarin.UnityMcpServer.Editor",
     "UnityEngine.TestRunner",
     "UnityEditor.TestRunner",
-    "Newtonsoft.Json"
+    "GUID:6055be8ebefd69e48acc49212b354ae4"
   ],
   "includePlatforms": [
     "Editor"

@@ -1,0 +1,16 @@
+{
+    "name": "Sakurarin.UnityMcpServer.Runtime",
+    "rootNamespace": "Sakurarin.UnityMcpServer.Runtime",
+    "references": [
+        "GUID:6055be8ebefd69e48acc49212b354ae4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+} 

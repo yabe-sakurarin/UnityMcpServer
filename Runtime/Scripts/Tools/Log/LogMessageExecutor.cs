@@ -59,8 +59,12 @@ namespace Sakurarin.UnityMcpServer.Runtime.Tools.Log
             LoggingService.Log(logLevel, logPrefix + message);
 
             // --- Result --- 
-            // Return simple success
-            return Task.FromResult(ToolResult.SimpleSuccess());
+            // Return success with data as per design document
+            var resultData = new Dictionary<string, object>
+            {
+                { "success", true }
+            };
+            return Task.FromResult(ToolResult.SuccessWithData(resultData));
         }
     }
 } 

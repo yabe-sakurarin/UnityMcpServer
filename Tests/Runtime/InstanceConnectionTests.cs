@@ -19,58 +19,72 @@ namespace Sakurarin.UnityMcpServer.Runtime.Tests
     {
         private UnityInstanceConnector _connector;
         private SimpleTcpEchoServer _testServer;
-        private const int TestPort = 10000; // Must match connector's BasePort for instanceId "0"
-        private const string TestInstanceId = "0";
+        private const int TestPort = 12345; // Changed to a less common port
+        private const string TestInstanceId = "2345"; // Changed ID to match TestPort (assuming base 10000 + ID logic)
         private List<string> _receivedMessages = new List<string>();
         private ManualResetEventSlim _messageReceivedEvent;
 
-        [UnitySetUp]
-        public IEnumerator SetUp()
+        // Renamed to OneTimeSetUp to run once before all tests in this class
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
+             Debug.Log("Executing OneTimeSetUp...");
             _messageReceivedEvent = new ManualResetEventSlim(false);
+            _receivedMessages = new List<string>(); // Initialize here
 
-            // Start the test server before each test
+            // Start the test server ONCE
             _testServer = new SimpleTcpEchoServer(TestPort);
-            var serverStarted = Task.Run(() => _testServer.Start());
+            try
+            {
+                _testServer.Start();
+                 // Wait a very short moment to allow server thread to start listening
+                 // Note: Ideally, the server Start method should provide a way to wait until it's ready.
+                 // Task.Delay(100).Wait(); // Simple wait, adjust if needed, avoid in async if possible
+                 Debug.Log("Test Server Started (OneTimeSetUp)");
+            }
+            catch (Exception ex)
+            {
+                 // Use Assert.Fail in OneTimeSetUp if server fails to start
+                 Assert.Fail($"Test server failed to start in OneTimeSetUp: {ex.Message}");
+            }
 
             _connector = new UnityInstanceConnector();
-
-            // Clear message list (check for safety)
-            if (_receivedMessages == null) _receivedMessages = new List<string>();
-            _receivedMessages.Clear();
-
-            // Ensure event is initialized and reset it for the new test
-            if (_messageReceivedEvent == null) // Should not happen after init above, but safety check
-            {
-                Debug.LogError("_messageReceivedEvent is NULL before Reset in SetUp!");
-                _messageReceivedEvent = new ManualResetEventSlim(false); // Re-initialize if null
-            }
-            _messageReceivedEvent.Reset(); // Reset added back AFTER null check
-
-            // Wait briefly for server to potentially start (adjust if needed)
-            yield return new WaitUntil(() => serverStarted.IsCompleted || serverStarted.IsFaulted);
-            if(serverStarted.IsFaulted)
-            {
-                Assert.Fail($"Test server failed to start: {serverStarted.Exception?.InnerException?.Message}");
-            }
-            Debug.Log("Test Server Started");
         }
 
-        [UnityTearDown]
-        public IEnumerator TearDown()
+        // Added UnitySetUp for per-test state reset
+        [UnitySetUp]
+        public IEnumerator UnitySetUp()
         {
-            // Stop the server and dispose connector after each test
+            Debug.Log("Executing UnitySetUp...");
+            // Clear message list before each test
+            _receivedMessages.Clear();
+
+            // Reset the event before each test
+             if (_messageReceivedEvent == null) // Safety check, should be initialized in OneTimeSetUp
+            {
+                 Debug.LogError("_messageReceivedEvent is NULL in UnitySetUp!");
+                 _messageReceivedEvent = new ManualResetEventSlim(false);
+            }
+            _messageReceivedEvent.Reset();
+            yield return null; // Required for IEnumerator UnitySetUp
+        }
+
+        // Renamed to OneTimeTearDown to run once after all tests in this class
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            Debug.Log("Executing OneTimeTearDown...");
+            // Stop the server and dispose connector ONCE
             _connector?.Dispose();
             _testServer?.Stop();
             _connector = null;
             _testServer = null;
             if (_messageReceivedEvent != null)
             {
-                 _messageReceivedEvent.Dispose();
+                _messageReceivedEvent.Dispose();
                 _messageReceivedEvent = null;
             }
-            Debug.Log("Test Server Stopped, Connector Disposed");
-            yield return null;
+            Debug.Log("Test Server Stopped, Connector Disposed (OneTimeTearDown)");
         }
 
         // Basic connection test
@@ -230,7 +244,7 @@ namespace Sakurarin.UnityMcpServer.Runtime.Tests
                         Debug.Log($"[TestServer] Received: {line}");
                         // Echo back
                         await writer.WriteLineAsync(line).ConfigureAwait(false);
-                         Debug.Log($"[TestServer] Echoed: {line}");
+                         Debug.Log($"[TestServer] Echoed: {line}"); // Uncommented the echo log
                     }
                 }
                  catch (ObjectDisposedException) { /* Client disconnected, expected */ }
